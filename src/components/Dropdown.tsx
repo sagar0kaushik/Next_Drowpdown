@@ -25,7 +25,7 @@ export default function Dropdown() {
   const [theme, setTheme] = useState("dark");
   const [mounted, setMounted] = useState(false);
 
-  // 🌓 Initialize theme before render
+  
   useLayoutEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
@@ -33,7 +33,7 @@ export default function Dropdown() {
     setMounted(true);
   }, []);
 
-  // 🔁 Theme update
+
   useEffect(() => {
     if (mounted) {
       document.body.className = `${theme}-mode`;
@@ -41,14 +41,14 @@ export default function Dropdown() {
     }
   }, [theme, mounted]);
 
-  // 🌎 Load countries + restore previous state
+
   useEffect(() => {
     fetchData(`${API_URL}/countries`).then(data => Array.isArray(data) && setCountries(data));
     const saved = JSON.parse(localStorage.getItem("locationRows") || "[]");
     if (saved.length) setRows(saved);
   }, []);
 
-  // 💾 Save to localStorage
+
   useEffect(() => localStorage.setItem("locationRows", JSON.stringify(rows)), [rows]);
 
   const updateRow = (index: number, updates: any) =>
